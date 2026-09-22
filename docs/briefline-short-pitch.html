@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Briefline — Short Pitch</title>
+  <style>
+    @page { size: 13.333in 7.5in; margin: 0; }
+    :root { --ink:#eef5ff; --muted:#a9bdd7; --blue:#3e8bff; --cyan:#63e6be; --panel:#132844; --line:#294568; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:#071423; color:var(--ink); font-family:Inter,Segoe UI,Arial,sans-serif; }
+    .slide { width:13.333in; height:7.5in; padding:.58in .72in; page-break-after:always; position:relative; overflow:hidden; background:linear-gradient(135deg,#071423 0%,#0d2039 100%); }
+    .slide:last-child { page-break-after:auto; }
+    .kicker { color:var(--cyan); text-transform:uppercase; letter-spacing:.16em; font-size:13px; font-weight:800; margin-bottom:22px; }
+    h1 { font-size:58px; line-height:1.02; letter-spacing:-.045em; margin:0 0 20px; max-width:850px; }
+    h2 { font-size:39px; line-height:1.08; letter-spacing:-.035em; margin:0 0 25px; }
+    h3 { font-size:18px; margin:0 0 9px; }
+    p { color:var(--muted); font-size:18px; line-height:1.45; margin:0 0 15px; }
+    .sub { color:#dbe9fa; font-size:22px; max-width:900px; line-height:1.4; }
+    .accent { color:var(--cyan); }
+    .blue { color:var(--blue); }
+    .footer { position:absolute; left:.72in; right:.72in; bottom:.34in; display:flex; justify-content:space-between; color:#6983a3; font-size:11px; letter-spacing:.05em; text-transform:uppercase; }
+    .orb { position:absolute; width:4.7in; height:4.7in; border-radius:50%; right:-1.1in; top:-1.35in; background:radial-gradient(circle at 35% 38%,#3e8bff 0%,#164b9f 23%,rgba(20,69,145,.2) 56%,transparent 72%); opacity:.7; }
+    .orb2 { position:absolute; width:3.4in; height:3.4in; border-radius:50%; right:1.3in; bottom:-2.1in; background:radial-gradient(circle,#63e6be 0%,rgba(40,153,132,.15) 54%,transparent 70%); opacity:.4; }
+    .pillrow { display:flex; gap:10px; flex-wrap:wrap; margin-top:25px; }
+    .pill { border:1px solid #315276; border-radius:999px; padding:8px 13px; color:#cfe0f5; font-size:13px; }
+    .two { display:grid; grid-template-columns:1.1fr .9fr; gap:34px; align-items:center; height:5.7in; }
+    .three { display:grid; grid-template-columns:repeat(3,1fr); gap:15px; margin-top:28px; }
+    .card { background:rgba(19,40,68,.82); border:1px solid var(--line); border-radius:16px; padding:22px; min-height:185px; }
+    .card p { font-size:15px; }
+    .icon { width:35px; height:35px; border-radius:10px; background:#1d5cb8; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:900; margin-bottom:18px; }
+    .quote { border-left:4px solid var(--cyan); padding:17px 0 17px 20px; font-size:27px; line-height:1.22; color:#fff; max-width:800px; }
+    .flow { display:grid; grid-template-columns:repeat(4,1fr); gap:11px; margin-top:22px; }
+    .flow .card { min-height:165px; padding:16px; }
+    .num { color:var(--cyan); font-size:13px; font-weight:900; margin-bottom:15px; }
+    .metricgrid { display:grid; grid-template-columns:repeat(4,1fr); gap:13px; margin-top:30px; }
+    .metric { border-top:2px solid var(--blue); padding-top:15px; }
+    .metric strong { display:block; color:#fff; font-size:32px; letter-spacing:-.04em; }
+    .metric span { color:var(--muted); font-size:13px; line-height:1.3; }
+    .architecture { display:grid; grid-template-columns:1fr 1.2fr 1fr; gap:13px; align-items:center; margin-top:25px; }
+    .archbox { border:1px solid var(--line); background:var(--panel); border-radius:14px; padding:18px; min-height:140px; }
+    .archbox.center { border-color:#3975c8; background:linear-gradient(145deg,#163765,#102846); }
+    .arrow { color:var(--cyan); font-size:28px; text-align:center; }
+    .checklist { display:grid; grid-template-columns:1fr 1fr; gap:10px 28px; margin-top:22px; }
+    .check { padding:13px 15px; background:rgba(19,40,68,.8); border:1px solid var(--line); border-radius:10px; color:#d9e7f7; font-size:15px; }
+    .check::before { content:"✓"; color:var(--cyan); font-weight:900; margin-right:10px; }
+    @media print { .slide { print-color-adjust:exact; -webkit-print-color-adjust:exact; } }
+  </style>
+</head>
+<body>
+  <section class="slide">
+    <div class="orb"></div><div class="orb2"></div>
+    <div class="kicker">Snapdragon AI PC Challenge</div>
+    <h1>Meetings into <span class="accent">action</span>.<br>Private by design.</h1>
+    <p class="sub">Briefline is an evidence-linked meeting and document copilot built for Snapdragon-powered HP PCs.</p>
+    <div class="pillrow"><span class="pill">On-device AI</span><span class="pill">Offline-first</span><span class="pill">Accessible</span><span class="pill">Evidence-linked</span></div>
+    <div class="footer"><span>BRIEFline</span><span>01 / 07</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">The problem</div>
+    <h2>The most important part of a meeting is what happens <span class="accent">after</span> it.</h2>
+    <div class="three">
+      <div class="card"><div class="icon">01</div><h3>Context gets lost</h3><p>People remember fragments, not the full chain from conversation to decision.</p></div>
+      <div class="card"><div class="icon">02</div><h3>Cloud is not always acceptable</h3><p>Confidential client work, unpublished ideas, and weak connectivity need a local option.</p></div>
+      <div class="card"><div class="icon">03</div><h3>Summaries are hard to trust</h3><p>A polished paragraph is not enough if nobody can check where it came from.</p></div>
+    </div>
+    <div class="footer"><span>WHY NOW</span><span>02 / 07</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">The solution</div>
+    <div class="two">
+      <div><h2>Briefline creates a brief you can <span class="accent">verify</span>.</h2><p>It listens locally, structures what changed, and links every action or decision to the source that supports it.</p><div class="quote">“Useful conclusion + the evidence behind it — without uploading the work.”</div></div>
+      <div class="card"><div class="icon">↗</div><h3>One local workspace</h3><p>Live transcript</p><p>Decisions and action owners</p><p>Deadlines and open questions</p><p>Timestamp and document evidence</p><p>Editable export-ready brief</p></div>
+    </div>
+    <div class="footer"><span>WHAT WE BUILD</span><span>03 / 07</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">How it works</div>
+    <h2>From conversation to a checked next step.</h2>
+    <div class="flow">
+      <div class="card"><div class="num">01 / CAPTURE</div><h3>Microphone or files</h3><p>Audio, PDFs, images, and notes remain inside the local workspace.</p></div>
+      <div class="card"><div class="num">02 / UNDERSTAND</div><h3>Transcribe and read</h3><p>Local models extract speech and document context.</p></div>
+      <div class="card"><div class="num">03 / STRUCTURE</div><h3>Find what changed</h3><p>Decisions, owners, dates, and questions become editable cards.</p></div>
+      <div class="card"><div class="num">04 / VERIFY</div><h3>Show the evidence</h3><p>Every result opens its supporting timestamp or source region.</p></div>
+    </div>
+    <div class="footer"><span>PRODUCT FLOW</span><span>04 / 07</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Built for Snapdragon</div>
+    <h2>Use the device’s AI engine, not a generic cloud endpoint.</h2>
+    <div class="architecture">
+      <div class="archbox"><h3>Qualcomm AI Hub</h3><p>Whisper-Medium for multilingual speech recognition.</p><p>Qwen3-0.6B for structured extraction.</p></div>
+      <div class="arrow">→</div>
+      <div class="archbox center"><h3>Snapdragon AI Engine</h3><p>Profile and deploy the compiled assets for NPU/GPU/CPU execution on the HP PC.</p></div>
+      <div class="arrow">→</div>
+      <div class="archbox"><h3>Briefline app</h3><p>Tauri + React interface, local SQLite search, offline export.</p></div>
+    </div>
+    <div class="metricgrid"><div class="metric"><strong>0</strong><span>required cloud calls in the core flow</span></div><div class="metric"><strong>100%</strong><span>of results designed to carry evidence</span></div><div class="metric"><strong>2 tiers</strong><span>targeted: Snapdragon X Elite and X Plus</span></div><div class="metric"><strong>3 modes</strong><span>quality, balanced, and low-power</span></div></div>
+    <div class="footer"><span>TECHNICAL EDGE</span><span>05 / 07</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="kicker">Trust and access</div>
+    <h2>Private enough for real work. Simple enough for everyone.</h2>
+    <div class="checklist">
+      <div class="check">Local-only mode enabled by default</div>
+      <div class="check">Pause and delete controls per session</div>
+      <div class="check">No account required for the core workflow</div>
+      <div class="check">Keyboard navigation and visible focus</div>
+      <div class="check">Scalable typography and high contrast</div>
+      <div class="check">Uncertain output is labeled, not hidden</div>
+    </div>
+    <div class="quote" style="margin-top:34px">A local AI assistant should not just be faster. It should make the user more comfortable using it.</div>
+    <div class="footer"><span>DEPLOYMENT & ACCESSIBILITY</span><span>06 / 07</span></div>
+  </section>
+
+  <section class="slide">
+    <div class="orb"></div><div class="orb2"></div>
+    <div class="kicker">The finish line</div>
+    <h2>Make the next step obvious.<br><span class="accent">Keep the work yours.</span></h2>
+    <p class="sub">Briefline turns the Snapdragon-powered HP PC into a private, practical partner for the work that follows every conversation.</p>
+    <div class="pillrow"><span class="pill">Working prototype</span><span class="pill">Measured on device</span><span class="pill">Open implementation</span></div>
+    <div class="footer"><span>BRIEFline · SNAPDRAGON AI PC CHALLENGE</span><span>07 / 07</span></div>
+  </section>
+</body>
+</html>
