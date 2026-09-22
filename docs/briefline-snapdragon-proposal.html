@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Briefline — Snapdragon AI PC Challenge Proposal</title>
+  <style>
+    :root {
+      --ink: #14213d;
+      --muted: #526179;
+      --paper: #fbfcff;
+      --panel: #ffffff;
+      --line: #dfe6f0;
+      --blue: #1769e0;
+      --blue-soft: #eaf2ff;
+      --green: #087f5b;
+      --green-soft: #e9f8f2;
+      --orange: #a65d00;
+      --orange-soft: #fff4df;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font: 15px/1.65 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .page { max-width: 980px; margin: 0 auto; padding: 56px 34px 80px; }
+    .eyebrow {
+      color: var(--blue); text-transform: uppercase; letter-spacing: .13em;
+      font-size: 12px; font-weight: 800; margin-bottom: 12px;
+    }
+    h1, h2, h3 { line-height: 1.2; letter-spacing: -.025em; }
+    h1 { max-width: 770px; font-size: clamp(34px, 6vw, 62px); margin: 0 0 20px; }
+    h2 { font-size: 28px; margin: 0 0 18px; }
+    h3 { font-size: 18px; margin: 0 0 8px; }
+    p { margin: 0 0 14px; }
+    .lede { color: var(--muted); max-width: 760px; font-size: 19px; line-height: 1.55; }
+    .hero {
+      padding: 34px; border: 1px solid var(--line); border-radius: 24px;
+      background: linear-gradient(135deg, #ffffff 0%, #f0f6ff 100%);
+      box-shadow: 0 12px 35px rgba(20, 55, 100, .07);
+    }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+    .tag { background: var(--blue-soft); color: #1754aa; border-radius: 999px; padding: 6px 11px; font-size: 12px; font-weight: 700; }
+    section { margin-top: 50px; }
+    .rule { height: 1px; background: var(--line); margin: 50px 0 0; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 21px; }
+    .card p:last-child, .card ul:last-child { margin-bottom: 0; }
+    .card.blue { background: var(--blue-soft); border-color: #cfe0ff; }
+    .card.green { background: var(--green-soft); border-color: #c8eedf; }
+    .card.orange { background: var(--orange-soft); border-color: #f4ddb1; }
+    .muted { color: var(--muted); }
+    ul, ol { margin: 8px 0 16px; padding-left: 22px; }
+    li { margin: 5px 0; }
+    .pipeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 20px 0; }
+    .step { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 13px; padding: 15px; min-height: 140px; }
+    .step::after { content: "→"; position: absolute; right: -15px; top: 47px; color: var(--blue); font-size: 22px; font-weight: 800; z-index: 2; }
+    .step:last-child::after { content: ""; }
+    .num { display: inline-flex; align-items: center; justify-content: center; width: 25px; height: 25px; border-radius: 50%; background: var(--blue); color: #fff; font-weight: 800; font-size: 12px; margin-bottom: 10px; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+    table { width: 100%; border-collapse: collapse; min-width: 650px; }
+    th, td { text-align: left; vertical-align: top; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+    th { background: #f2f6fb; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+    tr:last-child td { border-bottom: 0; }
+    .callout { border-left: 4px solid var(--blue); background: #fff; padding: 17px 20px; border-radius: 0 12px 12px 0; margin: 18px 0; }
+    .metric { font-size: 26px; font-weight: 850; color: var(--blue); letter-spacing: -.03em; }
+    .small { font-size: 13px; color: var(--muted); }
+    .footer { margin-top: 54px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    @media (max-width: 720px) {
+      .page { padding: 30px 18px 55px; }
+      .hero { padding: 25px 21px; }
+      .grid, .pipeline { grid-template-columns: 1fr; }
+      .step { min-height: auto; }
+      .step::after { content: "↓"; right: auto; top: auto; bottom: -18px; left: calc(50% - 6px); }
+      .step:last-child::after { content: ""; }
+    }
+    @media print {
+      body { background: #fff; }
+      .page { max-width: none; padding: 18mm; }
+      .hero, .card, .step, .table-wrap { box-shadow: none; break-inside: avoid; }
+      section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="eyebrow">Snapdragon-powered HP PC AI Challenge · Submission draft</div>
+      <h1>Briefline: a private, evidence-linked meeting and document copilot</h1>
+      <p class="lede">
+        Briefline turns a conversation, lecture, or working session into a trustworthy action brief
+        without sending the user's voice, documents, or screen content to the cloud. It is designed
+        around the AI capabilities of Snapdragon-powered HP PCs: local inference, low-latency interaction,
+        and privacy that remains available when the user is offline.
+      </p>
+      <div class="tag-row">
+        <span class="tag">On-device AI</span>
+        <span class="tag">Snapdragon X Elite / X Plus</span>
+        <span class="tag">Qualcomm AI Hub models</span>
+        <span class="tag">Offline-first</span>
+        <span class="tag">Accessibility</span>
+      </div>
+    </header>
+
+    <section>
+      <h2>1. Executive summary</h2>
+      <p>
+        Important decisions are often lost between a live discussion and the follow-up work. Existing
+        assistants typically require a cloud upload, produce a generic transcript, or hide the source
+        behind an opaque summary. Briefline takes a different approach: it runs locally on an HP
+        Snapdragon PC and creates a compact, editable brief where every proposed action is linked back
+        to the time range or document region that supports it.
+      </p>
+      <div class="callout">
+        <strong>Core promise:</strong> “Your work stays on your PC, and every useful conclusion can be checked.”
+      </div>
+      <p>
+        The first release supports microphone capture, imported audio, pasted notes, PDFs, and images.
+        It provides live transcription, a concise summary, decisions, action items, deadlines, open
+        questions, and evidence links. The user can correct any result before exporting a Markdown,
+        PDF, or shareable text brief.
+      </p>
+    </section>
+
+    <section>
+      <h2>2. Problem and target users</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>The problem</h3>
+          <p class="muted">
+            People spend the first part of a meeting listening and the second part reconstructing what
+            happened. Cloud-only tools are not appropriate for confidential discussions, customer data,
+            unpublished work, or unreliable connectivity.
+          </p>
+        </article>
+        <article class="card blue">
+          <h3>Primary users</h3>
+          <ul>
+            <li>Students turning lectures into review notes and questions</li>
+            <li>Small teams recording decisions without a meeting secretary</li>
+            <li>Freelancers and consultants handling client calls privately</li>
+            <li>People who benefit from searchable, readable, structured notes</li>
+          </ul>
+        </article>
+      </div>
+      <p style="margin-top:18px">
+        Briefline is deliberately narrower than a general-purpose chatbot. Its job is to preserve
+        context, identify what changed, and make the next step explicit.
+      </p>
+    </section>
+
+    <section>
+      <h2>3. What is innovative</h2>
+      <div class="grid">
+        <article class="card green">
+          <h3>Evidence-linked output</h3>
+          <p>
+            Every decision or action has a “show evidence” control that opens the supporting transcript
+            timestamp or source-document region. Low-confidence items are visibly marked instead of
+            being presented as facts.
+          </p>
+        </article>
+        <article class="card orange">
+          <h3>Private by architecture</h3>
+          <p>
+            Audio, transcripts, imported files, and generated briefs stay on the HP PC. Network access
+            is not needed for the core workflow after model installation.
+          </p>
+        </article>
+        <article class="card blue">
+          <h3>Conversation to work graph</h3>
+          <p>
+            Briefline groups related decisions, owners, dates, and unresolved questions into a small
+            local graph, making follow-up more useful than a flat transcript.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Accessible interaction</h3>
+          <p>
+            The interface supports keyboard navigation, readable summaries, adjustable text size,
+            transcript highlighting, speaker labels, and optional text-to-speech playback.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>4. Technical implementation</h2>
+      <p>
+        The application is a local-first Windows desktop app with a lightweight web UI. The model
+        choices are selected from Qualcomm AI Hub where available, then profiled on Snapdragon X
+        hardware before packaging. The final submission will include measured results rather than
+        unverified performance claims.
+      </p>
+      <div class="pipeline">
+        <div class="step">
+          <div class="num">1</div>
+          <h3>Capture</h3>
+          <p class="small">Microphone, imported audio, PDFs, images, and pasted notes enter a local workspace.</p>
+        </div>
+        <div class="step">
+          <div class="num">2</div>
+          <h3>Understand</h3>
+          <p class="small">Speech is transcribed locally; document and screen context is extracted when enabled.</p>
+        </div>
+        <div class="step">
+          <div class="num">3</div>
+          <h3>Structure</h3>
+          <p class="small">A compact local language model proposes decisions, actions, owners, dates, and questions.</p>
+        </div>
+        <div class="step">
+          <div class="num">4</div>
+          <h3>Verify</h3>
+          <p class="small">Evidence links, confidence labels, edits, search, and export keep the user in control.</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Layer</th><th>Proposed implementation</th><th>Why it fits Snapdragon HP PCs</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Speech recognition</strong></td>
+              <td>Whisper-Medium from Qualcomm AI Hub, with a smaller Whisper variant available for lower-power mode. Multilingual transcription is the default direction.</td>
+              <td>AI Hub lists Whisper models for Snapdragon X Elite and X Plus. The compiled/profiled asset can target the device runtime instead of relying on a generic CPU build.</td>
+            </tr>
+            <tr>
+              <td><strong>Local generation</strong></td>
+              <td>Qwen3-0.6B from Qualcomm AI Hub for extraction and structured brief generation. Prompts require JSON-shaped fields and evidence references.</td>
+              <td>AI Hub lists Qwen3-0.6B for Snapdragon X Elite. Its small footprint is appropriate for responsive local extraction.</td>
+            </tr>
+            <tr>
+              <td><strong>Optional vision</strong></td>
+              <td>Qwen2.5-VL-7B-Instruct or another profiled AI Hub vision-language model for diagrams and image-heavy documents; feature-gated after profiling.</td>
+              <td>Provides a path to multimodal context while keeping the core experience usable on more than one Snapdragon tier.</td>
+            </tr>
+            <tr>
+              <td><strong>Runtime</strong></td>
+              <td>Qualcomm AI Runtime / QAIRT or the supported AI Hub deployment path, with CPU fallback for unsupported configurations.</td>
+              <td>Uses the Snapdragon AI Engine and allows the final build to compare NPU, GPU, and CPU execution.</td>
+            </tr>
+            <tr>
+              <td><strong>App shell</strong></td>
+              <td>Tauri desktop shell with a React and TypeScript interface; local service for model orchestration; SQLite FTS5 for searchable briefs and evidence offsets.</td>
+              <td>Small install footprint, native Windows packaging, and no server dependency for the core workflow.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>5. Data flow and privacy</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Default data path</h3>
+          <ol>
+            <li>Capture or import stays in the local application sandbox.</li>
+            <li>Audio is chunked and passed to the local ASR model.</li>
+            <li>The transcript and document text are indexed in local SQLite storage.</li>
+            <li>The local generator creates structured suggestions with source offsets.</li>
+            <li>The user reviews, edits, and exports the final brief.</li>
+          </ol>
+        </article>
+        <article class="card blue">
+          <h3>Trust controls</h3>
+          <ul>
+            <li>Visible offline/local-processing status</li>
+            <li>Pause and delete controls for every session</li>
+            <li>Local-only mode enabled by default</li>
+            <li>Export is explicit and user initiated</li>
+            <li>No account required for the core workflow</li>
+            <li>Uncertain extractions are labeled, not silently asserted</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>6. Deployment and accessibility</h2>
+      <p>
+        Briefline will be distributed as a signed Windows installer for Snapdragon-powered HP PCs.
+        The installer detects the processor and available runtime, downloads or activates the correct
+        compiled model assets, and offers a CPU fallback where necessary. The application remains
+        useful without an internet connection once its model assets are installed.
+      </p>
+      <div class="grid">
+        <article class="card">
+          <h3>Hardware targets</h3>
+          <ul>
+            <li>Primary: HP PCs with Snapdragon X Elite</li>
+            <li>Compatibility target: HP PCs with Snapdragon X Plus</li>
+            <li>Mode selection: quality, balanced, and low-power profiles</li>
+            <li>Graceful fallback: CPU execution with a clear performance notice</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Accessible by default</h3>
+          <ul>
+            <li>Full keyboard navigation and visible focus states</li>
+            <li>High-contrast color treatment and scalable typography</li>
+            <li>Transcript playback synchronized to highlighted text</li>
+            <li>Readable action cards instead of dense chat-only output</li>
+            <li>Plain-language explanations for confidence and evidence</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>7. Validation plan and success metrics</h2>
+      <p>
+        These are acceptance targets for the prototype, not claimed results. They will be measured on
+        at least one Snapdragon-powered HP PC and documented in the final demo notes.
+      </p>
+      <div class="grid">
+        <article class="card">
+          <div class="metric">≤ 2×</div>
+          <p><strong>Transcription real-time factor target</strong><br><span class="small">A 10-minute recording should process in no more than 20 minutes in the baseline profile.</span></p>
+        </article>
+        <article class="card">
+          <div class="metric">≤ 5 s</div>
+          <p><strong>Brief refresh target</strong><br><span class="small">A completed session should begin producing structured results within five seconds of processing completion.</span></p>
+        </article>
+        <article class="card">
+          <div class="metric">100%</div>
+          <p><strong>Evidence coverage target</strong><br><span class="small">Every displayed action and decision must contain a timestamp or source reference.</span></p>
+        </article>
+        <article class="card">
+          <div class="metric">0</div>
+          <p><strong>Required cloud calls</strong><br><span class="small">The core capture, transcription, extraction, search, and export flow must work offline.</span></p>
+        </article>
+      </div>
+      <p style="margin-top:18px">
+        Evaluation will include transcription quality on clean and noisy audio, extraction accuracy
+        against a hand-labeled set of decisions and tasks, interaction latency, memory use, battery
+        impact, installer success, and keyboard/screen-reader checks.
+      </p>
+    </section>
+
+    <section>
+      <h2>8. Demonstration plan</h2>
+      <ol>
+        <li><strong>Set the context:</strong> show a short client-style discussion containing a decision, an owner, a date, and an unresolved question.</li>
+        <li><strong>Show the device:</strong> briefly demonstrate that Briefline is running on the Snapdragon-powered HP PC with local mode enabled.</li>
+        <li><strong>Process live:</strong> capture a few sentences and show the transcript arriving without a network-dependent workflow.</li>
+        <li><strong>Reveal the brief:</strong> display the decisions, action cards, open questions, and evidence links.</li>
+        <li><strong>Challenge the output:</strong> open one evidence link, edit an uncertain item, and show that the correction is retained.</li>
+        <li><strong>Prove accessibility and privacy:</strong> use keyboard navigation, change text size, pause capture, and show the local data controls.</li>
+      </ol>
+      <div class="callout">
+        <strong>Demo line:</strong> “Briefline does not ask the user to trust a black-box summary. It shows the useful conclusion and the source that supports it, while keeping the raw work on the HP PC.”
+      </div>
+    </section>
+
+    <section>
+      <h2>9. Delivery roadmap</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Phase</th><th>Deliverable</th><th>Exit check</th></tr></thead>
+          <tbody>
+            <tr><td>1. Foundation</td><td>Desktop shell, local workspace, microphone/import flow, session management</td><td>Can create, pause, resume, and delete a local session</td></tr>
+            <tr><td>2. On-device models</td><td>AI Hub ASR and local generation pipeline, with runtime selection</td><td>Transcript and structured draft produced without a server</td></tr>
+            <tr><td>3. Evidence layer</td><td>Timestamp offsets, document regions, confidence labels, editable action cards</td><td>Every result opens supporting evidence</td></tr>
+            <tr><td>4. Polish</td><td>Accessibility, export, installer, profiling, performance dashboard</td><td>Demo path is repeatable on the target HP PC</td></tr>
+            <tr><td>5. Submission</td><td>Recorded demo, architecture diagram, measurements, setup instructions, final proposal</td><td>All claims are backed by observed results or clearly labeled targets</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>10. Eligibility and submission checklist</h2>
+      <div class="grid">
+        <article class="card green">
+          <h3>Before submitting</h3>
+          <ul>
+            <li>Confirm the solution is designed for Snapdragon-powered HP PCs.</li>
+            <li>Document the Qualcomm AI Hub or open-source models used.</li>
+            <li>Replace every target metric with measured results where available.</li>
+            <li>Confirm the proposal and implementation are solely owned by the participant.</li>
+            <li>Check that this is the participant’s only submission.</li>
+            <li>Review every intake-form field because submissions cannot be changed afterward.</li>
+          </ul>
+        </article>
+        <article class="card orange">
+          <h3>Fields to personalize</h3>
+          <ul>
+            <li>Participant or team name</li>
+            <li>Contact details and submission URL</li>
+            <li>Final repository or demo link</li>
+            <li>Exact HP Snapdragon device model used for testing</li>
+            <li>Measured benchmark table and software versions</li>
+            <li>Ownership declaration and submission date</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p><strong>Working title:</strong> Briefline</p>
+      <p><strong>Submission owner:</strong> [Participant name]</p>
+      <p class="small">
+        This document is a submission-ready proposal draft. Model support, runtime packaging, and
+        performance figures must be verified on the exact HP Snapdragon configuration used for the demo
+        before final submission.
+      </p>
+    </footer>
+  </main>
+</body>
+</html>
